@@ -56,8 +56,8 @@ class BurgerBuilder extends Component {
         });
         this.setState({ purchase: ingredientsValueSum > 0 });
     }
-    purchasableHandler = () => {
-        this.setState({ purchasable: true })
+    purchasableHandler = (purchasable) => {
+        this.setState({ purchasable })
     }
 
     render() {
@@ -68,7 +68,8 @@ class BurgerBuilder extends Component {
 
         return (
             <Fragment>
-                <Modal show={this.state.purchasable}>
+                <Modal show={this.state.purchasable}
+                    purchasableHandler={this.purchasableHandler}>
                     <OrderSummary ingredients={this.state.ingredient} />
                 </Modal>
                 <Burger ingredient={this.state.ingredient} />

@@ -30,7 +30,7 @@ const BuildControls = ({ addIngredient, removeIngredient,
             { renderControl}
             <button className='OrderButton'
                 disabled={!purchase}
-                onClick={() => purchasableHandler()}
+                onClick={() => purchasableHandler(purchase)}
             > ORDER NOW</button>
         </div >
     )

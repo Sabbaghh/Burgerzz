@@ -5,7 +5,7 @@ const BackDrop = ({ show, exit }) => {
     if (show) {
         return (
             <div className="BackDrop"
-                onClick={() => exit(false)}>
+                onClick={() => exit()}>
             </div>
         )
     }

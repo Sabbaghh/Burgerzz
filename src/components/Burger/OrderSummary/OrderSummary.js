@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
+import Button from '../../UI/Button/Button'
 
-const OrderSummary = ({ ingredients, exit }) => {
+const OrderSummary = ({ ingredients, exit, test }) => {
 
     const ingredientsSammary = Object.keys(ingredients).map((el, index) => {
         return (
@@ -21,8 +22,8 @@ const OrderSummary = ({ ingredients, exit }) => {
             </ul>
             <p>Continue to Checkout?</p>
             <div>
-                <button onClick={() => exit(false)}>CANCEL</button>
-                <button>CONTINUE</button>
+                <Button value='CANCEl' callBackFunction={exit} btnStyle='Danger' />
+                <Button value='CONTINUE' callBackFunction={exit} btnStyle='Success' />
             </div>
 
         </Fragment>

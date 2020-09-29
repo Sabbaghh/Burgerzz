@@ -5,13 +5,11 @@ const BackDrop = ({ show, exit }) => {
     if (show) {
         return (
             <div className="BackDrop"
-                onClick={() => { exit(false) }}>
+                onClick={() => exit(false)}>
             </div>
         )
-    } else {
-        return <div> loading ... </div>
     }
-
+    return null;
 }
 
 export default BackDrop;

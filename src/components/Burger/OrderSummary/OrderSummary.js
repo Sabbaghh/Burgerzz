@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Button from '../../UI/Button/Button'
 
-const OrderSummary = ({ ingredients, exit, test }) => {
+const OrderSummary = ({ ingredients, exit, price }) => {
 
     const ingredientsSammary = Object.keys(ingredients).map((el, index) => {
         return (
@@ -20,6 +20,7 @@ const OrderSummary = ({ ingredients, exit, test }) => {
             <ul>
                 {ingredientsSammary}
             </ul>
+            <h3> Total Price : {price.toFixed(2)} </h3>
             <p>Continue to Checkout?</p>
             <div>
                 <Button value='CANCEl' callBackFunction={exit} btnStyle='Danger' />

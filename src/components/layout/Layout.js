@@ -6,23 +6,29 @@ import ToolBar from '../Navigation/ToolBar/ToolBar'
 
 class Layout extends Component {
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     }
 
-    SideDrawerHandler = () => {
+    hideSideDrawer = () => {
         this.setState({ showSideDrawer: false })
     }
-    render() {
-        return (<Fragment>
-            <ToolBar />
-            <SideDrawer
-                closed={this.SideDrawerHandler}
-                show={this.state.showSideDrawer} />
+    showSideDrawer = () => {
+        this.setState({ showSideDrawer: true })
+    }
 
-            <main className='content'>
-                {this.props.children}
-            </main>
-        </Fragment >)
+
+    render() {
+        return (
+            <Fragment>
+                <ToolBar show={this.showSideDrawer} />
+                <SideDrawer
+                    closed={this.hideSideDrawer}
+                    show={this.state.showSideDrawer} />
+                <main className='content'>
+                    {this.props.children}
+                </main>
+            </Fragment >
+        )
     }
 
 

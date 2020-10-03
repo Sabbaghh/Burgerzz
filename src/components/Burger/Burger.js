@@ -5,11 +5,17 @@ import './Burger.css';
 
 const Burger = (props) => {
 
-    let Slices = Object.keys(props.ingredient).map(el => {
-        return [...Array(props.ingredient[el])].map((_, index) => {
-            return <BurgerInGredient type={el} key={Math.random()} />
+    let Slices = Object.keys(props.ingredient)
+        .map(igKey => {
+            return [...Array(props.ingredient[igKey])].map((_, i) => {
+                return <BurgerInGredient key={igKey + i} type={igKey} />;
+            });
         })
-    }).reduce((arr, el) => { return arr.concat(el) }, []);
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+
+
 
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './CheckOutSummary.css'
-import Burger from '../Burger/Burger';
-import Button from '../UI/Button/Button';
+import Burger from '../../Burger/Burger';
+import Button from '../../UI/Button/Button';
 
 
 const CheckOutSummary = ({ ingredient, history }) => {

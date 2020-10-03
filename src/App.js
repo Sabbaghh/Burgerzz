@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from './components/layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
+import Orders from './containers/Orders/Orders';
 import CheckOut from './containers/CheckOut/CheckOut'
 import { Route } from 'react-router-dom';
 
@@ -14,6 +15,9 @@ function App() {
 
         <Route path="/checkout">
           <CheckOut />
+        </Route>
+        <Route path="/orders">
+          <Orders />
         </Route>
       </Layout>
     </div>

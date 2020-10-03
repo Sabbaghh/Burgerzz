@@ -1,0 +1,18 @@
+.Order {
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px auto;
+  box-sizing: border-box;
+}
+.Ingredients {
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.Ingredients h3 {
+  background-color: brown;
+  color: #fff;
+  width: 100%;
+}

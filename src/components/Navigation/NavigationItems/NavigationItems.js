@@ -8,8 +8,8 @@ export const NavigationItems = (props) => {
             <NavigationItem link='/' itemStyle>
                 BurgerBuilder
             </NavigationItem>
-            <NavigationItem link='/' >
-                Checkout
+            <NavigationItem link='/orders' >
+                Orders
             </NavigationItem>
         </ul>
     );

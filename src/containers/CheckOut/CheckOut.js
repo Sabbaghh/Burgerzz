@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import CheckoutSummary from '../../components/Order/CheckOutSummary'
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckOutSummary'
 import { withRouter, Route } from 'react-router-dom';
 import ConactData from './ContactData/ContactData';
 import Spinner from '../../components/UI/Spinner/Spinner'

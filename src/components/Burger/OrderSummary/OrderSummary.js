@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Button from '../../UI/Button/Button'
 
-const OrderSummary = ({ ingredients, exit, price }) => {
+const OrderSummary = ({ ingredients, exit, price, continues }) => {
 
     const ingredientsSammary = Object.keys(ingredients).map((el, index) => {
         return (
@@ -24,7 +24,7 @@ const OrderSummary = ({ ingredients, exit, price }) => {
             <p>Continue to Checkout?</p>
             <div>
                 <Button value='CANCEl' callBackFunction={exit} btnStyle='Danger' />
-                <Button value='CONTINUE' callBackFunction={exit} btnStyle='Success' />
+                <Button value='CONTINUE' callBackFunction={continues} btnStyle='Success' />
             </div>
 
         </Fragment>

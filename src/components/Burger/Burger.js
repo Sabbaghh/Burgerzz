@@ -5,7 +5,6 @@ import './Burger.css';
 
 const Burger = (props) => {
 
-    
     let Slices = Object.keys(props.ingredient).map(el => {
         return [...Array(props.ingredient[el])].map((_, index) => {
             return <BurgerInGredient type={el} key={Math.random()} />

@@ -3,7 +3,7 @@ import './Order.css';
 export const Order = ({ price, ingredients }) => {
 
     const renderIngredients = Object.keys(ingredients).map(ing => {
-        return <p key={ing}> {ing} : {ingredients[ing]} </p>
+        return <h4 key={ing}> ({ing} : {ingredients[ing]}) </h4>
     })
 
     return (

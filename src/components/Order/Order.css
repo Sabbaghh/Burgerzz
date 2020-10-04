@@ -16,3 +16,20 @@
   color: #fff;
   width: 100%;
 }
+.Ingredients h4 {
+  width: 25%;
+  display: inline-block;
+  font-size: 20px;
+  border-right: 1px solid brown;
+  box-sizing: border-box;
+}
+
+.Ingredients h4:last-of-type {
+  border-right: none;
+}
+
+@media (max-width: 500px) {
+  .Order {
+    width: 95%;
+  }
+}

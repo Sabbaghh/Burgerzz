@@ -1,65 +1,144 @@
 import React, { Component } from 'react';
 import axiosOrders from '../../../Database/axios-orders';
 import Button from '../../../components/UI/Button/Button';
-import Spinner from '../../../components/UI/Spinner/Spinner'
-
-import './ContactData.css';
+import Input from '../../../components/UI/Input/input';
+import './ContactData.css'
 
 export class ContactData extends Component {
     state = {
-        orders: {
-            name: '',
-            email: '',
-            address: {
-                street: '',
-                cirty: '',
+        orderForm: {
+            name: {
+                elemntType: 'input',
+                elemntConfig: {
+                    type: 'text',
+                    placeholder: 'name'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLenght: 5,
+                    maxLenght: 20
+                },
+                valid: false
+            },
+            street: {
+                elemntType: 'input',
+                elemntConfig: {
+                    type: 'text',
+                    placeholder: 'street'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLenght: 5,
+                    maxLenght: 20
+                },
+                valid: false
+            },
+            country: {
+                elemntType: 'input',
+                elemntConfig: {
+                    type: 'text',
+                    placeholder: 'country'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLenght: 5,
+                    maxLenght: 20
+                },
+                valid: false
+            },
+            email: {
+                elemntType: 'input',
+                elemntConfig: {
+                    type: 'email',
+                    placeholder: 'email'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLenght: 5,
+                    maxLenght: 20
+                },
+                valid: false
             }
         },
         loading: false,
-
     }
+
     formHandler = (e) => {
         e.preventDefault();
+        //implent formData to send them
+        let formData = {}
+        for (let values in this.state.orderForm) {
+            formData[values] = this.state.orderForm[values].value;
+        }
+        //start the loading till data fetch
         this.setState({ loading: true })
+        //implementing the order that u wanna fetch
         const order = {
             ingredients: this.props.ingredient,
             price: this.props.price,
-            customer: {
-                name: 'sabbbagh',
-                adress: {
-                    street: 'hai ilshahid',
-                    country: 'Jordan'
-                },
-                email: 'holyshot@gmail.com'
-            }
+            formData
         }
-        //http request 
-
+        //http request to fetch data using axios
         axiosOrders.post('orders.json', order)
-            .then(res => {
-                this.setState({ loading: false })
-
-            })
+            .then(res => { this.setState({ loading: false }) })
             .catch(this.setState({ loading: true }))
     }
 
-    render() {
-        let Form = (
-            <form onSubmit={(e) => this.formHandler(e)}>
-                <input type="text" name='name' placeholder='Your name' />
-                <input type="email" name='email' placeholder='Your email' />
-                <input type="text" name='city' placeholder='city code' />
-                <input type="street" name='street' placeholder='Your street' />
-                <Button btnStyle='Success' value='Submit' callBackFunction={() => this.formHandler} />
-            </form>
-        )
-        if (this.state.loading) {
-            Form = <Spinner />
+    checkValidation = (value, rules) => {
+        let isValid = true;
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
         }
+        if (rules.minLenght) {
+            isValid = value.length >= rules.minLenght && isValid;
+        }
+        return isValid;
+    }
+
+    inputHandler = (e, name) => {
+        //store the value
+        let value = e.target.value;
+        //clone objects inside the orderFrom state
+        let specificObj = { ...this.state.orderForm[name] };
+        //updating the cloned objects with the new value
+        specificObj['value'] = value;
+        //checking validation and updating valid 
+        specificObj.valid = this.checkValidation(value, specificObj['validation']);
+        // clone the main orderFrom from state
+        let mainObj = { ...this.state.orderForm };
+        //update the orderForm clone
+        mainObj[name] = specificObj;
+        this.setState({ orderForm: mainObj })
+    }
+
+    render() {
+        const renderInputs = Object.keys(this.state.orderForm).map((key, index) => {
+            return <Input
+                Label={key} key={index} name={key}
+                elemntType={this.state.orderForm[key].elemntType}
+                elemntConfig={this.state.orderForm[key].elemntConfig}
+                value={this.state.orderForm[key].value}
+                callBackFunction={this.inputHandler}
+                validation={this.state.orderForm[key].valid}
+            />
+        })
+
         return (
             <div className='ContactData'>
-                <h4> Enter your contact Datat</h4>
-                {Form}
+                <h4> Enter your contact Data</h4>
+                <form onSubmit={this.formHandler}>
+                    {renderInputs}
+
+                    <Button
+                        btnStyle='Success'
+                        value='CONFIRM' />
+                </form>
+
+
             </div>
         );
     };

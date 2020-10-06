@@ -10,7 +10,8 @@ export const Order = ({ price, ingredients }) => {
         <div className='Order'>
             <div className='Ingredients'>
                 <h3>INGREDIENTS : </h3>
-                {renderIngredients}
+
+                {ingredients ? renderIngredients : null}
             </div>
             <p>Price : {price} </p>
         </div>

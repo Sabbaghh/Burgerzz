@@ -5,7 +5,7 @@ import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axiosOrders from '../../Database/axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 
 const INGREDIENT_PRICE = {
     SALAD: 0.5,

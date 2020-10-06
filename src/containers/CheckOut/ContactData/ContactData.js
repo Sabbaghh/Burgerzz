@@ -19,7 +19,8 @@ export class ContactData extends Component {
                     minLenght: 5,
                     maxLenght: 20
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             street: {
                 elemntType: 'input',
@@ -33,7 +34,8 @@ export class ContactData extends Component {
                     minLenght: 5,
                     maxLenght: 20
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             country: {
                 elemntType: 'input',
@@ -47,7 +49,8 @@ export class ContactData extends Component {
                     minLenght: 5,
                     maxLenght: 20
                 },
-                valid: false
+                valid: false,
+                touched: false
             },
             email: {
                 elemntType: 'input',
@@ -61,10 +64,12 @@ export class ContactData extends Component {
                     minLenght: 5,
                     maxLenght: 20
                 },
-                valid: false
+                valid: false,
+                touched: false
             }
         },
         loading: false,
+        valid: false
     }
 
     formHandler = (e) => {
@@ -106,16 +111,25 @@ export class ContactData extends Component {
         let specificObj = { ...this.state.orderForm[name] };
         //updating the cloned objects with the new value
         specificObj['value'] = value;
+        //check if its touched
+        specificObj['touched'] = true;
         //checking validation and updating valid 
         specificObj.valid = this.checkValidation(value, specificObj['validation']);
         // clone the main orderFrom from state
         let mainObj = { ...this.state.orderForm };
         //update the orderForm clone
         mainObj[name] = specificObj;
-        this.setState({ orderForm: mainObj })
+        //update the valid Form 
+        let valid = true;
+        for (let i in mainObj) {
+            valid = valid && mainObj[i].valid
+        }
+
+        this.setState({ orderForm: mainObj, valid })
     }
 
     render() {
+        console.log(this.state.valid)
         const renderInputs = Object.keys(this.state.orderForm).map((key, index) => {
             return <Input
                 Label={key} key={index} name={key}
@@ -123,23 +137,25 @@ export class ContactData extends Component {
                 elemntConfig={this.state.orderForm[key].elemntConfig}
                 value={this.state.orderForm[key].value}
                 callBackFunction={this.inputHandler}
-                validation={this.state.orderForm[key].valid}
+                inValid={!this.state.orderForm[key].valid}
+                isTouched={this.state.orderForm[key].touched}
             />
         })
 
         return (
-            <div className='ContactData'>
+            <div className='ContactData' >
                 <h4> Enter your contact Data</h4>
                 <form onSubmit={this.formHandler}>
                     {renderInputs}
 
                     <Button
+                        disabled={!this.state.valid}
                         btnStyle='Success'
                         value='CONFIRM' />
                 </form>
 
 
-            </div>
+            </div >
         );
     };
 };

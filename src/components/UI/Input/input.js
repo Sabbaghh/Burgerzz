@@ -3,28 +3,29 @@ import './Input.css'
 export const input = (props) => {
 
     //check validation
-    let isValid = () => {
-        if (!props.validation) {
-            console.log('lol')
-        }
+    const inputClass = ['inputElement']
+    if (props.inValid && props.isTouched) {
+        inputClass.push('invalid')
     }
 
+    //rendering inputs
     let inputElement = null;
     switch (props.elemntType) {
         case 'input':
             inputElement = <input
                 name={props.name}
-                className='inputElement'
+                className={inputClass.join(' ')}
                 {...props.elemntConfig}
                 value={props.value}
                 onChange={(e) => props.callBackFunction(e, props.name)}
-                onBlur={() => isValid()}
             />
+
+
             break;
         case 'textarea':
             inputElement = <textarea
                 name={props.name}
-                className='inputElement'
+                className={inputClass}
                 {...props.elemntConfig}
                 value={props.value()}
             />
@@ -32,7 +33,7 @@ export const input = (props) => {
         default:
             inputElement = <input
                 name={props.name}
-                className='inputElement'
+                className={inputClass}
                 {...props.elemntConfig}
                 value={props.value} />
     }

@@ -26,7 +26,7 @@ export const input = (props) => {
                 name={props.name}
                 className='inputElement'
                 {...props.elemntConfig}
-                value={props.value}
+                value={props.value()}
             />
             break;
         default:

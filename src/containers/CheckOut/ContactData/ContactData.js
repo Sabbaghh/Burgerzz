@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import axiosOrders from '../../../Database/axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/input';
-import './ContactData.css'
+
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import './ContactData.css';
 
 export class ContactData extends Component {
     state = {
@@ -83,13 +86,16 @@ export class ContactData extends Component {
         this.setState({ loading: true })
         //implementing the order that u wanna fetch
         const order = {
-            ingredients: this.props.ingredient,
-            price: this.props.price,
+            ingredients: this.props.ingredients,
+            TotalPrice: this.props.TotalPrice,
             formData
         }
         //http request to fetch data using axios
         axiosOrders.post('orders.json', order)
-            .then(res => { this.setState({ loading: false }) })
+            .then(res => {
+                this.setState({ loading: false });
+                this.props.history.push('/orders')
+            })
             .catch(this.setState({ loading: true }))
     }
 
@@ -98,6 +104,7 @@ export class ContactData extends Component {
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
+
         if (rules.minLenght) {
             isValid = value.length >= rules.minLenght && isValid;
         }
@@ -129,7 +136,6 @@ export class ContactData extends Component {
     }
 
     render() {
-        console.log(this.state.valid)
         const renderInputs = Object.keys(this.state.orderForm).map((key, index) => {
             return <Input
                 Label={key} key={index} name={key}
@@ -147,17 +153,21 @@ export class ContactData extends Component {
                 <h4> Enter your contact Data</h4>
                 <form onSubmit={this.formHandler}>
                     {renderInputs}
-
                     <Button
                         disabled={!this.state.valid}
                         btnStyle='Success'
-                        value='CONFIRM' />
+                        value='CONFIRM'
+                    />
                 </form>
-
-
             </div >
         );
     };
 };
+const mapstatetopProps = state => {
+    return {
+        ingredients: state.ingredients,
+        TotalPrice: state.TotalPrice
+    }
+}
 
-export default ContactData;
+export default connect(mapstatetopProps)(withRouter(ContactData));

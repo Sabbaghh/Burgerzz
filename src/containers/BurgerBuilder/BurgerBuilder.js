@@ -11,38 +11,19 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
-
-const INGREDIENT_PRICE = {
-    SALAD: 0.5,
-    CHEESE: 0.2,
-    MEAT: 1.3,
-    BACON: 0.7
-}
-
 class BurgerBuilder extends Component {
-
     state = {
         purchase: false,
         purchasable: false,
         loading: false,
     }
 
-    // componentDidMount() {
-    //     axiosOrders.get('/ingredient.json')
-    //         .then(res => { this.setState({ ingredient: res.data }); })
-    //         .catch(err => console.log(err))
-    // }
-
-
     componentDidMount() {
-        const ingredients = this.props.ingredients;
+        const ingredients = { ...this.props.ingredients };
         let ingredientsValueSum = 0;
         for (let i in ingredients) {
             ingredientsValueSum = ingredientsValueSum + ingredients[i]
-            console.log(ingredients[i])
         }
-
-
         this.setState({ purchase: this.props.TotalPrice > 4 });
     }
 
@@ -54,29 +35,9 @@ class BurgerBuilder extends Component {
         return ingredientsValueSum > 0;
     }
 
-    purchasableHandler = () => {
-        this.setState({ purchasable: true })
-    }
-
-    purchasableCancel = () => {
-        this.setState({ purchasable: false })
-    }
-
-    purchasableContinue = () => {
-        this.setState({ loading: true })
-        let params = [];
-        for (let i in this.props.ingredient) {
-            params.push(`${encodeURIComponent(i)}=${encodeURIComponent(this.state.ingredient[i])}`)
-        }
-        const queryString = params.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search: `?${queryString}`
-
-
-        });
-
-    }
+    purchasableHandler = () => this.setState({ purchasable: true })
+    purchasableCancel = () => this.setState({ purchasable: false })
+    purchasableContinue = () => this.props.history.push({ pathname: '/checkout' });
 
     render() {
         const ingredientValuesButtons = { ...this.props.ingredients };
@@ -133,10 +94,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
     return {
         AddIngredient: (IngredientsName) =>
-            dispatch({ type: actionTypes.ADD_INGREDIENT, IngredientsName: IngredientsName }),
+            dispatch({ type: actionTypes.ADD_INGREDIENT, IngredientsName }),
 
         removeIngredient: (IngredientsName) =>
-            dispatch({ type: actionTypes.REMOVE_INGREDIENT, IngredientsName: IngredientsName })
+            dispatch({ type: actionTypes.REMOVE_INGREDIENT, IngredientsName })
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BurgerBuilder));

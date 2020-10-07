@@ -7,9 +7,10 @@ import './Orders.css'
 export class Orders extends Component {
     state = {
         orders: [],
-        loading: true
+        loading: false
     }
     componentDidMount() {
+        this.setState({ loading: true })
         axiosOrders.get('/orders.json')
             .then(res => {
                 const fetchOrders = [];
@@ -30,7 +31,7 @@ export class Orders extends Component {
                 return <Order
                     key={key.id}
                     ingredients={key.ingredients}
-                    price={key.price}
+                    price={key.TotalPrice}
                 />
             })
         )

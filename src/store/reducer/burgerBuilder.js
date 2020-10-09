@@ -36,12 +36,10 @@ const burgerBuilder = (state = initialState, action) => {
                 },
                 TotalPrice: state.TotalPrice - INGREDIENT_PRICE[action.IngredientsName]
             }
+
         case actionTypes.SET_INGREDIENT:
-            return {
-                ...state,
-                ingredients: action.ingredients,
-                TotalPrice: initialState.TotalPrice
-            }
+            return { ...state, ingredients: action.ingredients, TotalPrice: initialState.TotalPrice }
+
         default:
             return state;
     }

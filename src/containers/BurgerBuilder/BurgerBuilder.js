@@ -5,48 +5,30 @@ import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { withRouter } from 'react-router-dom';
-
 //redux
 import { connect } from 'react-redux';
 import * as builderBurgerActions from '../../store/actions/burgerBuilder'
 
 class BurgerBuilder extends Component {
-    state = {
-        purchase: false,
-        purchasable: false,
-        loading: false,
-    }
+    state = { purchasable: false, loading: false };
 
-    componentDidMount() {
-        this.props.initIngredients();
-
-        const ingredients = { ...this.props.ingredients };
-        let ingredientsValueSum = 0;
-        for (let i in ingredients) {
-            ingredientsValueSum = ingredientsValueSum + ingredients[i]
-        }
-
-        this.setState({ purchase: this.props.TotalPrice > 4 });
-    }
+    componentDidMount() { this.props.initIngredients(); };
 
     editPurchase = (ing) => {
         let ingredientsValueSum = 0;
-        Object.values({ ...ing }).map(el => {
-            return ingredientsValueSum += el;
-        });
+        Object.values({ ...ing }).map(el => (ingredientsValueSum += el));
         return ingredientsValueSum > 0;
-    }
+    };
 
-    purchasableHandler = () => this.setState({ purchasable: true })
-    purchasableCancel = () => this.setState({ purchasable: false })
+    purchasableHandler = () => this.setState({ purchasable: true });
+
+    purchasableCancel = () => this.setState({ purchasable: false });
+
     purchasableContinue = () => this.props.history.push({ pathname: '/checkout' });
 
     render() {
-
         const ingredientValuesButtons = { ...this.props.ingredients };
-        for (let i in ingredientValuesButtons) {
-            ingredientValuesButtons[i] = ingredientValuesButtons[i] <= 0
-        }
+        for (let i in ingredientValuesButtons) ingredientValuesButtons[i] = ingredientValuesButtons[i] <= 0
 
         let OrderSummarys = null;
         let burger = <Spinner />
@@ -64,7 +46,6 @@ class BurgerBuilder extends Component {
                         purchasableHandler={this.purchasableHandler} />
                 </Fragment>
             );
-
             OrderSummarys = (
                 <OrderSummary
                     ingredients={this.props.ingredients}
@@ -87,15 +68,15 @@ class BurgerBuilder extends Component {
     }
 }
 //redux axtions
-
-const mapStateToProps = state => {
-    return {
+const mapStateToProps = state => (
+    {
         ingredients: state.burgerBuilder.ingredients,
         TotalPrice: state.burgerBuilder.TotalPrice
     }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
+)
+
+const mapDispatchToProps = (dispatch) => (
+    {
         AddIngredient: (IngredientsName) =>
             dispatch(builderBurgerActions.addIngredient(IngredientsName)),
 
@@ -104,5 +85,6 @@ const mapDispatchToProps = (dispatch) => {
 
         initIngredients: () => dispatch(builderBurgerActions.initIngredients())
     }
-}
+)
+
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BurgerBuilder));

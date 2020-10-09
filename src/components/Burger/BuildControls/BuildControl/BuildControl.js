@@ -10,11 +10,9 @@ const BuildControl = ({ Label, type, add, remove, disabled, count }) => {
                 onClick={remove}>
                 Less
             </button>
-
             <div className='Label'>
                 {Label} : {count}
             </div>
-
             <button
                 className='More'
                 onClick={add}>

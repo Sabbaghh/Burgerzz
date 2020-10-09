@@ -12,36 +12,10 @@ export const fetchOrder = (order, history) => {
             .catch(err => console.log(err))
     }
 };
-
-export const purchaseBurgerStart = () => {
-    return {
-        type: PURCHACE_BURGER_START,
-    }
-};
-
-const fetchOrderSuccess = (id, order) => {
-    return {
-        type: FETCH_ORDER,
-        orders: { id, order }
-    }
-};
+export const purchaseBurgerStart = () => ({ type: PURCHACE_BURGER_START });
+const fetchOrderSuccess = (id, order) => ({ type: FETCH_ORDER, orders: { id, order } });
 
 //orders
-
-const getOrdersToComponent = (data) => {
-    return {
-        type: GET_ORDERS,
-        order: data
-    }
-};
-
-const isGettingOrders = () => {
-    return {
-        type: IS_GETTING_ORDERS
-    }
-};
-
-
 export const getOrdersFormDatabase = () => {
     return dispatch => {
         dispatch(isGettingOrders())
@@ -50,6 +24,9 @@ export const getOrdersFormDatabase = () => {
             .catch(err => dispatch(isGettingOrders()))
     }
 };
+const getOrdersToComponent = (data) => ({ type: GET_ORDERS, order: data });
+const isGettingOrders = () => ({ type: IS_GETTING_ORDERS });
+
 
 
 

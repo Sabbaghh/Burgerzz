@@ -71,36 +71,28 @@ export class ContactData extends Component {
                 touched: false
             }
         },
-        loading: false,
         valid: false
     }
 
     formHandler = (e) => {
         e.preventDefault();
         //implent formData to send them
-        let formData = {}
-        for (let values in this.state.orderForm) {
-            formData[values] = this.state.orderForm[values].value;
-        }
+        let formData = {};
+        for (let values in this.state.orderForm) formData[values] = this.state.orderForm[values].value;
         //implementing the order that u wanna fetch
-        const order = {
+        const order = ({
             ingredients: this.props.ingredients,
             TotalPrice: this.props.TotalPrice,
             formData
-        }
+        });
         //axios
         this.props.fetchOrder(order, this.props.history);
     }
 
     checkValidation = (value, rules) => {
         let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLenght) {
-            isValid = value.length >= rules.minLenght && isValid;
-        }
+        if (rules.required) isValid = value.trim() !== '' && isValid;
+        if (rules.minLenght) isValid = value.length >= rules.minLenght && isValid;
         return isValid;
     }
 
@@ -124,7 +116,6 @@ export class ContactData extends Component {
         for (let i in mainObj) {
             valid = valid && mainObj[i].valid
         }
-
         this.setState({ orderForm: mainObj, valid })
     }
 
@@ -143,7 +134,7 @@ export class ContactData extends Component {
 
         return (
             <div className='ContactData' >
-                <h4> Enter your contact Data</h4>
+                <h4> PLEASE ENTER YOU CONTACT DATA</h4>
                 <form onSubmit={this.formHandler}>
                     {renderInputs}
                     <Button
@@ -156,17 +147,19 @@ export class ContactData extends Component {
         );
     };
 };
-const mapstatetopProps = state => {
-    return {
+const mapstatetopProps = state => (
+    {
         ingredients: state.burgerBuilder.ingredients,
         TotalPrice: state.burgerBuilder.TotalPrice,
         loading: state.order.loading
     }
-}
-const dispatchToProps = (dispatch) => {
-    return {
+)
+
+const dispatchToProps = (dispatch) => (
+    {
         fetchOrder: (order, history) => dispatch(orderActions.fetchOrder(order, history))
     }
-}
+)
+
 
 export default connect(mapstatetopProps, dispatchToProps)(withRouter(ContactData));

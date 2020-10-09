@@ -15,14 +15,7 @@ const Burger = (props) => {
             return arr.concat(el)
         }, []);
 
-
-
-
-
-
-    if (Slices.length === 0) {
-        Slices = <p>please Start Adding Ingredient</p>;
-    }
+    if (Slices.length === 0) Slices = <p>please Start Adding Ingredient</p>;
 
     return (
         <div className='burger'>

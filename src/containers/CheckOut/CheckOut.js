@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner'
 
 export class CheckOut extends Component {
-
     render() {
-        let checkOutSummary = <CheckoutSummary
-            history={this.props.history}
-            ingredient={this.props.ingredients} />;
-
+        let checkOutSummary = (
+            <CheckoutSummary
+                history={this.props.history}
+                ingredient={this.props.ingredients} />
+        );
         if (!this.props.ingredients) {
             checkOutSummary = <Spinner />;
         }
@@ -27,11 +27,9 @@ export class CheckOut extends Component {
     };
 };
 
-const mapStateToProps = (state) => {
-    return {
-        ingredients: state.burgerBuilder.ingredients,
-        TotalPrice: state.burgerBuilder.TotalPrice
-    }
-}
+const mapStateToProps = (state) => ({
+    ingredients: state.burgerBuilder.ingredients,
+    TotalPrice: state.burgerBuilder.TotalPrice
+})
 
 export default connect(mapStateToProps)(withRouter(CheckOut));

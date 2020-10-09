@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckOutSummary'
-import { withRouter, Route, Redirect } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 import ConactData from './ContactData/ContactData';
 import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner'

@@ -19,6 +19,7 @@ class BurgerBuilder extends Component {
 
     componentDidMount() {
         this.props.initIngredients();
+
         const ingredients = { ...this.props.ingredients };
         let ingredientsValueSum = 0;
         for (let i in ingredients) {
@@ -41,6 +42,7 @@ class BurgerBuilder extends Component {
     purchasableContinue = () => this.props.history.push({ pathname: '/checkout' });
 
     render() {
+
         const ingredientValuesButtons = { ...this.props.ingredients };
         for (let i in ingredientValuesButtons) {
             ingredientValuesButtons[i] = ingredientValuesButtons[i] <= 0

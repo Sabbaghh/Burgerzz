@@ -1,35 +1,21 @@
-import React, { Component } from 'react';
-import axiosOrders from '../../Database/axios-orders';
+import React, { Component, Fragment } from 'react';
+//components
 import Order from '../../components/Order/Order'
 import Spinner from '../../components/UI/Spinner/Spinner';
-import './Orders.css'
+//redux
+import { connect } from 'react-redux'
+import { getOrdersFormDatabase } from '../../store/actions/order'
 
 export class Orders extends Component {
-    state = {
-        orders: [],
-        loading: false
-    }
     componentDidMount() {
-        this.setState({ loading: true })
-        axiosOrders.get('/orders.json')
-            .then(res => {
-                const fetchOrders = [];
-                for (let key in res.data) {
-                    fetchOrders.push({
-                        ...res.data[key],
-                        id: key
-                    })
-                }
-                this.setState({ orders: fetchOrders, loading: false });
-            })
-            .catch(err => console.log(err))
+        this.props.getOrders()
     }
 
     render() {
         let renderOrders = <Spinner />
-        if (!this.state.loading) {
+        if (!this.props.loading) {
             renderOrders = (
-                this.state.orders.map(key => {
+                this.props.orders.map(key => {
                     return <Order
                         key={key.id}
                         ingredients={key.ingredients}
@@ -38,14 +24,24 @@ export class Orders extends Component {
                 })
             )
         }
-
-
         return (
-            <div>
+            <Fragment>
                 {renderOrders}
-            </div>
+            </Fragment>
         );
     };
 };
 
-export default Orders;
+//redux connections
+const mapStateToProps = (state) => {
+    return {
+        loading: state.order.loading,
+        orders: state.order.orders
+    }
+}
+
+const dispatchToProps = (dispatch) => {
+    return { getOrders: () => dispatch(getOrdersFormDatabase()) }
+}
+
+export default connect(mapStateToProps, dispatchToProps)(Orders);

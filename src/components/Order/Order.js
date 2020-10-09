@@ -1,7 +1,7 @@
 import React from 'react';
 import './Order.css';
 export const Order = ({ price, ingredients }) => {
-
+    console.log(ingredients)
     const renderIngredients = Object.keys(ingredients).map(ing => {
         return <h4 key={ing}> ({ing} : {ingredients[ing]}) </h4>
     })

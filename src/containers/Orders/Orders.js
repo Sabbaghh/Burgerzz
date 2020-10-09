@@ -26,19 +26,23 @@ export class Orders extends Component {
     }
 
     render() {
-        const renderOrders = (
-            this.state.orders.map(key => {
-                return <Order
-                    key={key.id}
-                    ingredients={key.ingredients}
-                    price={key.TotalPrice}
-                />
-            })
-        )
+        let renderOrders = <Spinner />
+        if (!this.state.loading) {
+            renderOrders = (
+                this.state.orders.map(key => {
+                    return <Order
+                        key={key.id}
+                        ingredients={key.ingredients}
+                        price={key.TotalPrice}
+                    />
+                })
+            )
+        }
+
 
         return (
             <div>
-                {this.state.loading ? <Spinner /> : renderOrders}
+                {renderOrders}
             </div>
         );
     };

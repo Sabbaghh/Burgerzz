@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import axiosOrders from '../../../Database/axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/input';
 
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import * as orderActions from '../../../store/actions/order'
 import './ContactData.css';
 
 export class ContactData extends Component {
@@ -82,21 +82,14 @@ export class ContactData extends Component {
         for (let values in this.state.orderForm) {
             formData[values] = this.state.orderForm[values].value;
         }
-        //start the loading till data fetch
-        this.setState({ loading: true })
         //implementing the order that u wanna fetch
         const order = {
             ingredients: this.props.ingredients,
             TotalPrice: this.props.TotalPrice,
             formData
         }
-        //http request to fetch data using axios
-        axiosOrders.post('orders.json', order)
-            .then(res => {
-                this.setState({ loading: false });
-                this.props.history.push('/orders')
-            })
-            .catch(this.setState({ loading: true }))
+        //axios
+        this.props.fetchOrder(order, this.props.history);
     }
 
     checkValidation = (value, rules) => {
@@ -165,9 +158,15 @@ export class ContactData extends Component {
 };
 const mapstatetopProps = state => {
     return {
-        ingredients: state.ingredients,
-        TotalPrice: state.TotalPrice
+        ingredients: state.burgerBuilder.ingredients,
+        TotalPrice: state.burgerBuilder.TotalPrice,
+        loading: state.order.loading
+    }
+}
+const dispatchToProps = (dispatch) => {
+    return {
+        fetchOrder: (order, history) => dispatch(orderActions.fetchOrder(order, history))
     }
 }
 
-export default connect(mapstatetopProps)(withRouter(ContactData));
+export default connect(mapstatetopProps, dispatchToProps)(withRouter(ContactData));

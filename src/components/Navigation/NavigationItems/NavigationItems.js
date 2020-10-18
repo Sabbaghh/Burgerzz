@@ -11,6 +11,9 @@ export const NavigationItems = (props) => {
             <NavigationItem link='/orders' >
                 Orders
             </NavigationItem>
+            <NavigationItem link='/Auth' >
+                Login
+            </NavigationItem>
         </ul>
     );
 };

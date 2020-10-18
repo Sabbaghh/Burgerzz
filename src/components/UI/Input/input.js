@@ -1,7 +1,6 @@
 import React from 'react';
 import './Input.css'
 export const input = (props) => {
-
     //check validation
     const inputClass = ['inputElement']
     if (props.inValid && props.isTouched) {

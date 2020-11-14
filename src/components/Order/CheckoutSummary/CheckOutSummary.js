@@ -17,7 +17,7 @@ const CheckOutSummary = ({ ingredient, history }) => {
     const ButtonContinue = (
         <Button
             value='CONTINUE'
-            callBackFunction={() => history.push('/checkout/contact-data')}
+            callBackFunction={() => history.push('https://sabbaghh.github.io/Burgerzz/checkout/contact-data')}
             btnStyle='Success' />
     )
 

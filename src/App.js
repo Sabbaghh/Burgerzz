@@ -14,13 +14,13 @@ function App() {
         <Route path="/" exact >
           <BurgerBuilder />
         </Route>
-        <Route path="/checkout">
+        <Route path="https://sabbaghh.github.io/Burgerzz/checkout">
           <CheckOut />
         </Route>
-        <Route path="/orders">
+        <Route path="https://sabbaghh.github.io/Burgerzz/orders">
           <Orders />
         </Route>
-        <Route path="/Auth">
+        <Route path="https://sabbaghh.github.io/Burgerzz/Auth">
           <Auth />
         </Route>
       </Layout>

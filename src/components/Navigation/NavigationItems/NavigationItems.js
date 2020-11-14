@@ -5,10 +5,10 @@ import NavigationItem from './NavigationItem/NavigationItem'
 export const NavigationItems = (props) => {
     return (
         <ul className='NavigationItems'>
-            <NavigationItem link='https://sabbaghh.github.io/Burgerzz/' itemStyle>
+            <NavigationItem link='/' itemStyle>
                 BurgerBuilder
             </NavigationItem>
-            <NavigationItem link='https://sabbaghh.github.io/Burgerzz/orders' >
+            <NavigationItem link='/orders' >
                 Orders
             </NavigationItem>
             <NavigationItem link='/Auth' >

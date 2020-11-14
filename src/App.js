@@ -11,16 +11,16 @@ function App() {
   return (
     <div className="App">
       <Layout >
-        <Route path="/" exact >
+        <Route path="/Burgerzz" exact >
           <BurgerBuilder />
         </Route>
-        <Route path="https://sabbaghh.github.io/Burgerzz/checkout">
+        <Route path="/checkout">
           <CheckOut />
         </Route>
-        <Route path="https://sabbaghh.github.io/Burgerzz/orders">
+        <Route path="/orders">
           <Orders />
         </Route>
-        <Route path="https://sabbaghh.github.io/Burgerzz/Auth">
+        <Route path="/Auth">
           <Auth />
         </Route>
       </Layout>

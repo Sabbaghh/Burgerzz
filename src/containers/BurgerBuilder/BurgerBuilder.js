@@ -24,7 +24,7 @@ class BurgerBuilder extends Component {
 
     purchasableCancel = () => this.setState({ purchasable: false });
 
-    purchasableContinue = () => this.props.history.push({ pathname: 'https://sabbaghh.github.io/Burgerzz/checkout' });
+    purchasableContinue = () => this.props.history.push({ pathname: '/checkout' });
 
     render() {
         const ingredientValuesButtons = { ...this.props.ingredients };
